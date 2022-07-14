@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "990780052870",
+    "project_id": "cafemilano-f7401",
+    "storage_bucket": "cafemilano-f7401.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990780052870:android:142690b5e6859d3f994807",
+        "android_client_info": {
+          "package_name": "com.example.cafemilano"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990780052870-5dvji563odqvvpb77tvad3jvece25qep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHvb0Y2I0Q6Ch1dTJKP3Ws4p-ZPTmt-aI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990780052870-5dvji563odqvvpb77tvad3jvece25qep.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990780052870:android:6daa13e431cd9663994807",
+        "android_client_info": {
+          "package_name": "com.example.cafemilanoadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990780052870-5dvji563odqvvpb77tvad3jvece25qep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHvb0Y2I0Q6Ch1dTJKP3Ws4p-ZPTmt-aI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990780052870-5dvji563odqvvpb77tvad3jvece25qep.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
