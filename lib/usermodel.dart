@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class usermodel{
+class usermodel {
   final String fullname;
   final String email;
   final String password;
@@ -12,15 +12,14 @@ class usermodel{
     required this.password,
     required this.userid,
     required this.image,
-
-});
-  factory usermodel.fromDocument(DocumentSnapshot doc){
+  });
+  factory usermodel.fromDocument(DocumentSnapshot doc) {
     return usermodel(
-      fullname:doc['fullname'],
-        email:doc['email'],
-        password:doc['password'],
-        userid:doc['userid'],
-      image:doc['image'],
+      fullname: doc['fullname'],
+      email: doc['email'],
+      password: doc['password'],
+      userid: doc['userid'],
+      image: doc['image'],
     );
   }
 }

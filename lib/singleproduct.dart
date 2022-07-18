@@ -4,52 +4,54 @@ class singleproducts extends StatelessWidget {
   final String image;
   final String name;
   final int price;
+  final Function()? onTap;
   const singleproducts({
     Key? key,
-  required this.image,
+    required this.image,
     required this.name,
     required this.price,
-
+    required this.onTap
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.all(10),
-          height: 200,
-          width: 175,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(image),
-              fit: BoxFit.cover
+    return GestureDetector(
+      onTap:onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.all(10),
+            height: 200,
+            width: 175,
+            decoration: BoxDecoration(
+              image:
+                  DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+              borderRadius: BorderRadius.circular(10),
             ),
-            borderRadius: BorderRadius.circular(10),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '\₹$price',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+          Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '\₹$price',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(height: 5,),
-              Text(
-                name,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold
+                SizedBox(
+                  height: 5,
                 ),
-              ),
-            ],
+                Text(
+                  name,
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

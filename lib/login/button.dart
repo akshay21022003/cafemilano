@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class MyButton extends StatefulWidget {
   final void Function()? onPressed;
   final String text;
@@ -12,11 +11,11 @@ class MyButton extends StatefulWidget {
   @override
   _MyButtonState createState() => _MyButtonState();
 }
+
 class _MyButtonState extends State<MyButton> {
   @override
   Widget build(BuildContext context) {
-    return
-      MaterialButton(
+    return MaterialButton(
       onPressed: widget.onPressed,
       height: 50,
       shape: RoundedRectangleBorder(
@@ -36,7 +35,6 @@ class _MyButtonState extends State<MyButton> {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-
               color: Colors.white,
             ),
           ),

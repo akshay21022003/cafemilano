@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cafemilanoadmin/login/login_auth_provider.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -23,20 +22,20 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Testee Food',
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            iconTheme: IconThemeData(
-              color: Colors.black,
+          debugShowCheckedModeBanner: false,
+          title: '',
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              iconTheme: IconThemeData(
+                color: Colors.black,
+              ),
             ),
+            primarySwatch: Colors.blue,
           ),
-          primarySwatch: Colors.blue,
-        ),
-        home: LoginPage(),
-        //home: rolemanagement().handleauth()
-        // home: SignupPage(),
-      ),
+          home: rolemanagement().handleauth()
+          //home: rolemanagement().handleauth()
+          // home: SignupPage(),
+          ),
     );
   }
 }

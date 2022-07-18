@@ -1,9 +1,8 @@
-import 'package:cafemilanoadmin/admin.dart';
+import 'package:cafemilanoadmin/admin/admin.dart';
 import 'package:cafemilanoadmin/homepage.dart';
 import 'package:cafemilanoadmin/routing_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 
 class LoginAuthProvider with ChangeNotifier {
   static Pattern pattern =
@@ -17,8 +16,8 @@ class LoginAuthProvider with ChangeNotifier {
 
   void loginPageVaidation(
       {required TextEditingController? email,
-        required TextEditingController? password,
-        required BuildContext context}) async {
+      required TextEditingController? password,
+      required BuildContext context}) async {
     if (email!.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -47,21 +46,23 @@ class LoginAuthProvider with ChangeNotifier {
         ),
       );
       return;
-    } else if(email.text=='akshayvilawadekar@gmail.com' && password.text=='akshay123'){
+    } else if (email.text == 'akshayvilawadekar@gmail.com' &&
+        password.text == 'akshay123') {
       RoutingPage.goTonext(
         context: context,
         navigateTo: admin(),
       );
-
-    }else {
+    } else {
       try {
         loading = true;
         notifyListeners();
-        userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
           email: email.text,
           password: password.text,
-        ).then(
-              (value) async {
+        )
+            .then(
+          (value) async {
             loading = false;
             notifyListeners();
             await RoutingPage.goTonext(

@@ -17,26 +17,31 @@ class _signuppageState extends State<signuppage> {
   late UserCredential userCredential;
   RegExp regExp = RegExp(signuppage.pattern.toString());
   TextEditingController fullname = TextEditingController();
-  TextEditingController email  = TextEditingController();
+  TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController repassword = TextEditingController();
-  GlobalKey<ScaffoldMessengerState> globalKey =GlobalKey<ScaffoldMessengerState>();
+  GlobalKey<ScaffoldMessengerState> globalKey =
+      GlobalKey<ScaffoldMessengerState>();
   Future sendData() async {
     try {
-      userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email.text,
         password: password.text,
       );
-      await FirebaseFirestore.instance.collection('userdata').doc(userCredential.user?.uid).set({
-        'fullname':fullname.text.trim(),
-        'email':email.text.trim(),
-        'userid':userCredential.user?.uid,
-        'password':password.text.trim(),
-        'image':''.toString(),
-      }).then((value) =>RoutingPage.goTonext(
-        context: context,
-        navigateTo: LoginPage(),
-      ) );
+      await FirebaseFirestore.instance
+          .collection('userdata')
+          .doc(userCredential.user?.uid)
+          .set({
+        'fullname': fullname.text.trim(),
+        'email': email.text.trim(),
+        'userid': userCredential.user?.uid,
+        'password': password.text.trim(),
+        'image': ''.toString(),
+      }).then((value) => RoutingPage.goTonext(
+                context: context,
+                navigateTo: LoginPage(),
+              ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -51,8 +56,7 @@ class _signuppageState extends State<signuppage> {
           ),
         );
       }
-    }
-    catch (e) {
+    } catch (e) {
       globalKey.currentState?.showSnackBar(
         SnackBar(
           content: Text(e.toString()),
@@ -61,13 +65,14 @@ class _signuppageState extends State<signuppage> {
       setState(() {
         loading = false;
       });
-    }setState((){
-      loading =false;
+    }
+    setState(() {
+      loading = false;
     });
   }
 
-  void validation(){
-    if(fullname.text.trim().isEmpty || fullname.text.trim()==null ){
+  void validation() {
+    if (fullname.text.trim().isEmpty || fullname.text.trim() == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Full Name Is Empty"),
@@ -75,14 +80,14 @@ class _signuppageState extends State<signuppage> {
       );
       return;
     }
-    if(email.text.trim().isEmpty || email.text.trim()==null ){
+    if (email.text.trim().isEmpty || email.text.trim() == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Email Address Is Empty"),
         ),
       );
       return;
-    }else if(!regExp.hasMatch(email.text.trim())){
+    } else if (!regExp.hasMatch(email.text.trim())) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Please Enter Valid Email"),
@@ -90,7 +95,7 @@ class _signuppageState extends State<signuppage> {
       );
       return;
     }
-    if(password.text.trim().isEmpty || password.text.trim()==null ){
+    if (password.text.trim().isEmpty || password.text.trim() == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Password is Empty"),
@@ -98,36 +103,44 @@ class _signuppageState extends State<signuppage> {
       );
       return;
     }
-    if(password.text != repassword.text ){
+    if (password.text != repassword.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Password Should be Match"),
         ),
       );
       return;
-    }
-    else{
-      setState((){
+    } else {
+      setState(() {
         loading = true;
       });
       sendData();
     }
   }
 
-  Widget Textfield({required String hinttext,required IconData icon,required Color? iconColor,required TextEditingController controller}){
+  Widget Textfield(
+      {required String hinttext,
+      required IconData icon,
+      required Color? iconColor,
+      required TextEditingController controller}) {
     return Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(10),
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          prefixIcon: Icon(icon,color: iconColor,),
+          prefixIcon: Icon(
+            icon,
+            color: iconColor,
+          ),
           hintText: hinttext,
           hintStyle: TextStyle(color: Colors.brown[900]),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.brown.shade900,strokeAlign: StrokeAlign.center,width:1),
-              borderRadius: BorderRadius.circular(10)
-          ),
+              borderSide: BorderSide(
+                  color: Colors.brown.shade900,
+                  strokeAlign: StrokeAlign.center,
+                  width: 1),
+              borderRadius: BorderRadius.circular(10)),
         ),
       ),
     );
@@ -137,7 +150,15 @@ class _signuppageState extends State<signuppage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: globalKey,
-      appBar: AppBar(title: Text('SIGN UP',style: TextStyle(color: Colors.brown[900],fontSize: 30,fontWeight: FontWeight.bold,letterSpacing: 3),),
+      appBar: AppBar(
+        title: Text(
+          'SIGN UP',
+          style: TextStyle(
+              color: Colors.brown[900],
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 3),
+        ),
         backgroundColor: Colors.amber,
         centerTitle: true,
         elevation: 0,
@@ -148,22 +169,23 @@ class _signuppageState extends State<signuppage> {
           children: [
             Column(
               children: [
-                Expanded(child: Container(
+                Expanded(
+                    child: Container(
                   width: double.infinity,
                   color: Colors.brown[900],
-                  child:FittedBox(
+                  child: FittedBox(
                     fit: BoxFit.contain,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 10,bottom: 10),
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
                       child: CircleAvatar(
-                        backgroundImage:AssetImage('asset/burger.png'),
+                        backgroundImage: AssetImage('asset/burger.png'),
                         maxRadius: 90,
                       ),
                     ),
                   ),
-
                 )),
-                Expanded(flex: 3,
+                Expanded(
+                    flex: 3,
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       color: Colors.white,
@@ -175,45 +197,74 @@ class _signuppageState extends State<signuppage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Textfield(hinttext: 'Full Name',icon: Icons.person_outline,iconColor: Colors.brown[900],controller: fullname),
-                                Textfield(hinttext: 'Email',icon: Icons.email_outlined,iconColor: Colors.brown[900],controller: email),
-                                Textfield(hinttext: 'Password',icon: Icons.lock_outline,iconColor: Colors.brown[900],controller: password),
-                                Textfield(hinttext: 'Re-enter Password',icon: Icons.lock_reset_outlined,iconColor: Colors.brown[900],controller: repassword),
-                                MyButton(onPressed: (){
-                                  validation();
-                                }, text: 'SIGN UP'),
-                                loading?Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CircularProgressIndicator(),
-                                  ],
-                                ):
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('Already Have An Account?',style: TextStyle(color: Colors.grey[600]),),
-                                    TextButton(onPressed:(){Navigator.push(context,MaterialPageRoute(builder: (context){return LoginPage();}));},
-                                        child: Text('Login',style:TextStyle(color: Colors.amber),))
-                                  ],
-                                ),
-
-
-
+                                Textfield(
+                                    hinttext: 'Full Name',
+                                    icon: Icons.person_outline,
+                                    iconColor: Colors.brown[900],
+                                    controller: fullname),
+                                Textfield(
+                                    hinttext: 'Email',
+                                    icon: Icons.email_outlined,
+                                    iconColor: Colors.brown[900],
+                                    controller: email),
+                                Textfield(
+                                    hinttext: 'Password',
+                                    icon: Icons.lock_outline,
+                                    iconColor: Colors.brown[900],
+                                    controller: password),
+                                Textfield(
+                                    hinttext: 'Re-enter Password',
+                                    icon: Icons.lock_reset_outlined,
+                                    iconColor: Colors.brown[900],
+                                    controller: repassword),
+                                MyButton(
+                                    onPressed: () {
+                                      validation();
+                                    },
+                                    text: 'SIGN UP'),
+                                loading
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          CircularProgressIndicator(),
+                                        ],
+                                      )
+                                    : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Already Have An Account?',
+                                            style: TextStyle(
+                                                color: Colors.grey[600]),
+                                          ),
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.push(context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) {
+                                                  return LoginPage();
+                                                }));
+                                              },
+                                              child: Text(
+                                                'Login',
+                                                style: TextStyle(
+                                                    color: Colors.amber),
+                                              ))
+                                        ],
+                                      ),
                               ],
                             ),
                           ),
-
                         ],
                       ),
-
                     ))
               ],
             ),
           ],
         ),
       ),
-
     );
   }
 }
-
