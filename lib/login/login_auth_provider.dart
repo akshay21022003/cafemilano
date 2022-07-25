@@ -1,6 +1,8 @@
 import 'package:cafemilanoadmin/admin/admin.dart';
 import 'package:cafemilanoadmin/homepage.dart';
+import 'package:cafemilanoadmin/login/login.dart';
 import 'package:cafemilanoadmin/routing_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -46,12 +48,6 @@ class LoginAuthProvider with ChangeNotifier {
         ),
       );
       return;
-    } else if (email.text == 'akshayvilawadekar@gmail.com' &&
-        password.text == 'akshay123') {
-      RoutingPage.goTonext(
-        context: context,
-        navigateTo: admin(),
-      );
     } else {
       try {
         loading = true;
@@ -65,10 +61,18 @@ class LoginAuthProvider with ChangeNotifier {
           (value) async {
             loading = false;
             notifyListeners();
-            await RoutingPage.goTonext(
-              context: context,
-              navigateTo: homepage(),
-            );
+              var firebaseuser = await FirebaseAuth.instance.currentUser;
+              final snapshot = await FirebaseFirestore.instance.collection("userdata").doc(firebaseuser!.uid).get();
+              if(snapshot.exists){
+                var userField = snapshot.data();
+                if(userField!["role"]=="admin"){
+                  RoutingPage.goTonext(context: context, navigateTo: admin());
+                }else if(userField["role"]=="user"){
+                  RoutingPage.goTonext(context: context, navigateTo: homepage());
+                }
+              }else{
+                RoutingPage.goTonext(context: context, navigateTo: LoginPage());
+              }
           },
         );
         notifyListeners();

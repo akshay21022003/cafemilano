@@ -1,3 +1,4 @@
+import 'package:cafemilanoadmin/cart.dart';
 import 'package:cafemilanoadmin/homepage.dart';
 import 'package:cafemilanoadmin/login/login.dart';
 import 'package:cafemilanoadmin/profile.dart';
@@ -39,92 +40,120 @@ class BuildDrawar extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: IconButton(
-              color: Colors.brown.shade900,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return profile();
-                }));
-              },
-              icon: Icon(
-                Icons.person,
-              ),
-            ),
-            title: Text(
-              'Profile',
-              style: TextStyle(
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return profile();
+              }));
+            },
+            child: ListTile(
+              leading: IconButton(
                 color: Colors.brown.shade900,
-                letterSpacing: 1,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return profile();
+                  }));
+                },
+                icon: Icon(
+                  Icons.person,
+                ),
+              ),
+              title: Text(
+                'Profile',
+                style: TextStyle(
+                  color: Colors.brown.shade900,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ),
-          ListTile(
-            leading: IconButton(
-              color: Colors.brown.shade900,
-              onPressed: () {},
-              icon: Icon(
-                Icons.shopping_cart,
-              ),
-            ),
-            title: Text(
-              'Cart',
-              style: TextStyle(
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return cart();
+              }));
+            },
+            child: ListTile(
+              leading: IconButton(
                 color: Colors.brown.shade900,
-                letterSpacing: 1,
+                onPressed: () {},
+                icon: Icon(
+                  Icons.shopping_cart,
+                ),
+              ),
+              title: Text(
+                'Cart',
+                style: TextStyle(
+                  color: Colors.brown.shade900,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ),
-          ListTile(
-            leading: IconButton(
-              color: Colors.brown.shade900,
-              onPressed: () {},
-              icon: Icon(
-                Icons.favorite,
-              ),
-            ),
-            title: Text(
-              'Favorite',
-              style: TextStyle(
+          GestureDetector(
+            onTap: (){},
+            child: ListTile(
+              leading: IconButton(
                 color: Colors.brown.shade900,
-                letterSpacing: 1,
+                onPressed: () {},
+                icon: Icon(
+                  Icons.favorite,
+                ),
+              ),
+              title: Text(
+                'Favorite',
+                style: TextStyle(
+                  color: Colors.brown.shade900,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ),
-          ListTile(
-            leading: IconButton(
-              color: Colors.brown.shade900,
-              onPressed: () {},
-              icon: Icon(
-                Icons.shopping_basket,
-              ),
-            ),
-            title: Text(
-              'My Order',
-              style: TextStyle(
+          GestureDetector(
+            onTap: (){},
+            child: ListTile(
+              leading: IconButton(
                 color: Colors.brown.shade900,
-                letterSpacing: 1,
+                onPressed: () {},
+                icon: Icon(
+                  Icons.shopping_basket,
+                ),
+              ),
+              title: Text(
+                'My Order',
+                style: TextStyle(
+                  color: Colors.brown.shade900,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ),
-          ListTile(
-            leading: IconButton(
-              color: Colors.amber[900],
-              onPressed: () {
-                FirebaseAuth.instance.signOut().then((value) => Navigator.push(
-                        context, MaterialPageRoute(builder: (context) {
-                      return LoginPage();
-                    })));
-              },
-              icon: Icon(
-                Icons.exit_to_app_sharp,
+          GestureDetector(
+            onTap: (){
+              FirebaseAuth.instance.signOut().then((value) => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) {
+                return LoginPage();
+              })));
+            },
+            child: ListTile(
+              leading: IconButton(
+                color: Colors.amber[900],
+                onPressed: () {
+                  FirebaseAuth.instance.signOut().then((value) => Navigator.push(
+                          context, MaterialPageRoute(builder: (context) {
+                        return LoginPage();
+                      })));
+                },
+                icon: Icon(
+                  Icons.exit_to_app_sharp,
+                ),
               ),
-            ),
-            title: Text(
-              'Log Out',
-              style: TextStyle(
-                color: Colors.brown.shade900,
-                letterSpacing: 1,
+              title: Text(
+                'Log Out',
+                style: TextStyle(
+                  color: Colors.brown.shade900,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ),

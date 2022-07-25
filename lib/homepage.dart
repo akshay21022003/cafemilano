@@ -1,3 +1,4 @@
+import 'package:cafemilanoadmin/admin/banner%20changes/banner.dart';
 import 'package:cafemilanoadmin/cart.dart';
 import 'package:cafemilanoadmin/categories.dart';
 import 'package:cafemilanoadmin/detail.dart';
@@ -11,9 +12,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 late usermodel usermodelobj;
-
 class homepage extends StatefulWidget {
-  const homepage({Key? key}) : super(key: key);
+  const homepage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<homepage> createState() => _homepageState();
@@ -92,18 +94,36 @@ class _homepageState extends State<homepage> {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(10),
-            height: 150,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      'https://firebasestorage.googleapis.com/v0/b/cafemilano-f7401.appspot.com/o/banner%2Fbanner.jpg?alt=media&token=29a7cdc0-f201-4b89-88a0-79d7239747cc'
-                        // 'https://th.bing.com/th/id/R.6c885854595dee3db77603541c584ca4?rik=2c3qbwnNv0nfxA&riu=http%3a%2f%2ftheshopperz.com%2fwp-content%2fuploads%2f2017%2f08%2fmcspicy-inner-banner.jpg&ehk=BCnYlmQ4F0rQlwuCwZNwNsv2JxHljQwyCJ34NilEPIg%3d&risl=&pid=ImgRaw&r=0'
-                    ))),
+          SizedBox(height: 5),
+          Padding(
+            padding: EdgeInsets.only(left: 10,right: 10),
+            child: Container(
+              height: 150,
+              /*Stream builder build itself based on latest snapshot present in our firebase
+              e.g. if we add some category inside our database then
+              it directly reflect on our category section*/
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("banner")
+                      .snapshots(),
+                  builder:
+                      (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    if (!streamSnapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: streamSnapshot.data!.docs.length,
+                        itemBuilder: (ctx, index) {
+                          return banner(image: streamSnapshot.data!.docs[index]
+                          ["image"]);
+                        });
+                  }),
+            ),
           ),
+          SizedBox(height: 5,),
           ListTile(
             leading: Text(
               'Categories',

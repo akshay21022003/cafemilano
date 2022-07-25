@@ -57,53 +57,6 @@ class _profileState extends State<profile> {
     );
   }
 
-  Widget nonedittextfield() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: EdgeInsets.all(20),
-          child: Text(
-            'Profile',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.5,
-              color: Colors.amber.shade200,
-            ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          width: MediaQuery.of(context).size.width / 2,
-          height: MediaQuery.of(context).size.width / 2,
-          decoration: BoxDecoration(
-              color: Colors.grey[900],
-              border: Border.all(color: Colors.amber.shade700, width: 5),
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(usermodelobj.image == ''
-                      ? 'https://th.bing.com/th/id/OIP.MclojOSIH_8-uyHTM3WdZQHaH5?w=165&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7'
-                      : usermodelobj.image))),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        TextField(
-            hinttext: usermodelobj.fullname,
-            icon: Icons.person,
-            enable: false,
-            controller: fullname),
-        TextField(
-            hinttext: usermodelobj.email,
-            icon: Icons.email,
-            enable: false,
-            controller: email),
-      ],
-    );
-  }
-
   Widget edittextfirld() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -311,9 +264,7 @@ class _profileState extends State<profile> {
           .putFile(pickedImage!);
 
       TaskSnapshot snapshot = await uploadTask;
-
       String profileImageUrl = await snapshot.ref.getDownloadURL();
-
       print(profileImageUrl);
 
       var uid = FirebaseAuth.instance.currentUser!.uid;
